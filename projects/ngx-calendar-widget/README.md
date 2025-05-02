@@ -7,7 +7,7 @@
 A lightweight, customizable, and feature-rich Angular calendar widget designed to simplify event management and scheduling in your Angular applications.
 
 <p align="center"> 
-  <img src="https://giacomo.dev/media/ncw_64.png" alt="ngx-calender-widget" width="64"/>
+  <img src="https://giacomo.dev/media/ncw_64.png" alt="ngx-calendar-widget" width="64"/>
 </p>
 
 ## Features
@@ -36,10 +36,10 @@ yarn add @localia/ngx-calendar-widget
 
 ### Import the Module
 
-Import the `NgxCalenderWidgetModule` into your Angular module:
+Import the `NgxCalendarWidgetModule` into your Angular module:
 
 ```typescript
-import { NgxCalenderWidgetModule } from '@localia/ngx-calender-widget';
+import { NgxCalendarWidgetModule } from '@localia/ngx-calendar-widget';
 
 @NgModule({
     imports: [
@@ -62,7 +62,7 @@ _Note:_ You only need to call .forRoot() once in your application.
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 // Import the module and the Locale type definition
-import { NgxCalenderWidgetModule, provideNgxCalenderTranslations } from '@localia/ngx-calender-widget';
+import { NgxCalendarWidgetModule, provideNgxCalendarTranslations } from '@localia/ngx-calendar-widget';
 
 import { AppComponent } from './app.component';
 
@@ -95,19 +95,19 @@ const myLocales: Locale[] = [
     imports: [
         BrowserModule,
         // Provide your locales using .forRoot()
-        NgxCalenderWidgetModule.forRoot(myLocales)
+        NgxCalendarWidgetModule.forRoot(myLocales)
     ],
 
     providers: [
         // or alternatively use the provider function
-        provideNgxCalenderTranslations(myLocales)
+        provideNgxCalendarTranslations(myLocales)
     ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
 
 ```
-The `[locale]` input on the `<ngx-calender-widget>` component determines which translations are used. If the specified locale is not found among the provided translations, the first locale provided via forRoot (or the default 'en' locale if .forRoot() was not called) will be used as a fallback.
+The `[locale]` input on the `<ngx-calendar-widget>` component determines which translations are used. If the specified locale is not found among the provided translations, the first locale provided via forRoot (or the default 'en' locale if .forRoot() was not called) will be used as a fallback.
 
 ### Add to Template
 
@@ -127,7 +127,7 @@ Use the component in your template:
 
 ### Component Preview
 <p align="center"> 
-  <img src="https://giacomo.dev/media/ncw_preview.png" alt="ngx-calender-widget" width="400"/>
+  <img src="https://giacomo.dev/media/ncw_preview.png" alt="ngx-calendar-widget" width="400"/>
 </p>
 
 ### Event Structure
@@ -135,7 +135,7 @@ Use the component in your template:
 Events must follow this interface:
 
 ```typescript
-interface CalenderEventInterface {
+interface CalendarEventInterface {
     id: number | string;     // Unique identifier for the event
     title: string;         // Event title to display on the calendar
     date: string;          // Start date/time in ISO format (YYYY-MM-DDTHH:mm:ss)
@@ -179,7 +179,7 @@ interface CalenderEventInterface {
 | `size`                   | `'default'\| 'large'\| 'x-large'`   | `'default'` | Size of the calendar.                       |
 | `hideMultiDayEventsText` | `boolean`                           | `true`      | Hide text for multi-day events.             |
 | `enableAddEvent`         | `boolean`                           | `false`     | Enable the "Add Event" button.              |
-| `events`                 | `CalenderEventInterface[]`          | `[]`        | Array of events to display on the calendar. |
+| `events`                 | `CalendarEventInterface[]`          | `[]`        | Array of events to display on the calendar. |
 
 ### Component Outputs
 
@@ -194,21 +194,21 @@ In your component, handle the emitted events:
 
 ```typescript
 import { Component } from '@angular/core';
-import { CalenderEventInterface } from '@localia/ngx-calender-widget';
+import { CalendarEventInterface } from '@localia/ngx-calendar-widget';
 
 @Component({
     selector: 'app-calendar-page',
     template: `
-    <ngx-calender-widget
+    <ngx-calendar-widget
       [events]="events"
       [enableAddEvent]="true"
       (addEvent)="onAddEvent($event)"
       (selectEvent)="onEventSelect($event)">
-    </ngx-calender-widget>
+    </ngx-calendar-widget>
   `
 })
 export class CalendarPageComponent {
-    events: CalenderEventInterface[] = [
+    events: CalendArEventInterface[] = [
         {
             id: 1,
             title: 'Team Meeting',
@@ -228,7 +228,7 @@ export class CalendarPageComponent {
         // Implement your event creation logic here
     }
 
-    onEventSelect(event: CalenderEventInterface) {
+    onEventSelect(event: CalendarEventInterface) {
         console.log('Event clicked:', event);
         // Implement your event handling logic here
     }
@@ -252,10 +252,10 @@ The calendar displays events with different styles based on their duration:
 To build the library, run:
 
 ```bash
-ng build @localia/ngx-calender-widget
+ng build @localia/ngx-calendar-widget
 ```
 
-The build artifacts will be stored in the `dist/@localia/ngx-calender-widget` directory.
+The build artifacts will be stored in the `dist/@localia/ngx-calendar-widget` directory.
 
 ## Publishing the Library
 
@@ -263,11 +263,11 @@ To publish the library to npm:
 
 1. Build the library:
    ```bash
-   ng build @localia/ngx-calender-widget
+   ng build @localia/ngx-calendar-widget
    ```
 2. Navigate to the `dist` directory:
    ```bash
-   cd dist/@localia/ngx-calender-widget
+   cd dist/@localia/ngx-calendar-widget
    ```
 3. Publish the library:
    ```bash
