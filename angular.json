@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngx-calender-widget": {
+    "library-workspace": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -24,7 +24,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/ngx-calender-widget",
+            "outputPath": "dist/library-workspace",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "ngx-calender-widget:build:production"
+              "buildTarget": "library-workspace:build:production"
             },
             "development": {
-              "buildTarget": "ngx-calender-widget:build:development"
+              "buildTarget": "library-workspace:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -101,6 +101,39 @@
               "src/styles.scss"
             ],
             "scripts": []
+          }
+        }
+      }
+    },
+    "ngx-calender-widget": {
+      "projectType": "library",
+      "root": "projects/ngx-calender-widget",
+      "sourceRoot": "projects/ngx-calender-widget/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ngx-calender-widget/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-calender-widget/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngx-calender-widget/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/ngx-calender-widget/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
           }
         }
       }

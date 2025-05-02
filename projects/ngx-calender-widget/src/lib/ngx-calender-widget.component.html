@@ -1,0 +1,43 @@
+<div class="calender" [ngClass]="calendarSizeClass">
+    <div class="calender__header">
+        <button class="calender__header__today" (click)="goToToday()">{{ today }}</button>
+        <span class="calender__header__prev" (click)="prevMonth()"><</span>
+        <div class="calender__header__title">{{ months[this.month] }} {{ this.year }}</div>
+        <span class="calender__header__next" (click)="nextMonth()">></span>
+    </div>
+    <div class="calender__body">
+        <div class="calender_week__description">
+            <div class="calender__weekday">{{ weekdays[1] }}</div>
+            <div class="calender__weekday">{{ weekdays[2] }}</div>
+            <div class="calender__weekday">{{ weekdays[3] }}</div>
+            <div class="calender__weekday">{{ weekdays[4] }}</div>
+            <div class="calender__weekday">{{ weekdays[5] }}</div>
+            <div class="calender__weekday">{{ weekdays[6] }}</div>
+            <div class="calender__weekday">{{ weekdays[0] }}</div>
+        </div>
+        <div class="calender__week" *ngFor="let week of matrix">
+            <div class="calender__day"
+                 *ngFor="let day of week"
+                 [ngClass]="{
+                    'calender__day--orange': isWeekend(day),
+                    'calender__day--gray': isNotSameMonth(day),
+                    'calender__day--today': isToday(day),
+                    'calender__day--selected': isSelected(day),
+                    'no-pointer': !enableAddEvent
+                 }">
+                <div class="calender__day-header">
+                    <span>{{ day | date: 'd' }}</span>
+                    <button class="calender__add-event-btn" [title]="addEventText" (click)="addNewEvent(day, $event)" *ngIf="enableAddEvent">+</button>
+                </div>
+                <div class="calender__events-container">
+                    <div class="calender__event"
+                         *ngFor="let event of getEventsForDay(day)"
+                         [ngClass]="getEventClass(event, day)"
+                         [ngStyle]="getEventStyles(event)">
+                        {{ event.displayTitle }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
