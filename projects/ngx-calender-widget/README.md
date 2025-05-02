@@ -64,7 +64,7 @@ Use the component in your template:
     [events]="events"
     [enableAddEvent]="true"
     (addEvent)="onAddEvent($event)"
-    (clickEvent)="onEventClick($event)">
+    (selectEvent)="onEventSelect($event)">
 </ngx-calender-widget>
 ```
 
@@ -146,7 +146,7 @@ import { CalenderEventInterface } from '@localia/ngx-calender-widget';
       [events]="events"
       [enableAddEvent]="true"
       (addEvent)="onAddEvent($event)"
-      (clickEvent)="onEventClick($event)">
+      (selectEvent)="onEventSelect($event)">
     </ngx-calender-widget>
   `
 })
@@ -171,7 +171,7 @@ export class CalendarPageComponent {
         // Implement your event creation logic here
     }
 
-    onEventClick(event: CalenderEventInterface) {
+    onEventSelect(event: CalenderEventInterface) {
         console.log('Event clicked:', event);
         // Implement your event handling logic here
     }

@@ -64,7 +64,7 @@ Use the component in your template:
     [events]="events"
     [enableAddEvent]="true"
     (addEvent)="onAddEvent($event)"
-    (clickEvent)="onEventClick($event)">
+    (selectEvent)="onEventSelect($event)">
 </ngx-calender-widget>
 ```
 
@@ -91,8 +91,8 @@ interface CalenderEventInterface {
 ```typescript
 // Single-day event
 {
-    id: 1,
-        title: "Team Meeting",
+    id: 1, 
+    title: "Team Meeting",
     date: "2023-10-15T14:00:00",
     endDate: "2023-10-15T15:30:00"
 }
@@ -100,7 +100,7 @@ interface CalenderEventInterface {
 // Multi-day event
 {
     id: "conf-2023",
-        title: "Annual Conference",
+    title: "Annual Conference",
     date: "2023-11-01T09:00:00",
     endDate: "2023-11-03T17:00:00"
 }
@@ -108,7 +108,7 @@ interface CalenderEventInterface {
 // Event without end date (treated as single-day)
 {
     id: 42,
-        title: "Deadline",
+    title: "Deadline",
     date: "2023-10-31T23:59:59",
     endDate: null
 }
@@ -146,7 +146,7 @@ import { CalenderEventInterface } from '@localia/ngx-calender-widget';
       [events]="events"
       [enableAddEvent]="true"
       (addEvent)="onAddEvent($event)"
-      (clickEvent)="onEventClick($event)">
+      (selectEvent)="onEventSelect($event)">
     </ngx-calender-widget>
   `
 })
@@ -171,7 +171,7 @@ export class CalendarPageComponent {
         // Implement your event creation logic here
     }
 
-    onEventClick(event: CalenderEventInterface) {
+    onEventSelect(event: CalenderEventInterface) {
         console.log('Event clicked:', event);
         // Implement your event handling logic here
     }

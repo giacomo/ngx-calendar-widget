@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
+import { Component, Output, EventEmitter, Input, SimpleChanges, OnChanges } from '@angular/core';
 import {
     getMonth,
     getYear,
@@ -26,7 +26,7 @@ import { CalenderEventInterface } from './calender-event.interface';
     templateUrl: './ngx-calender-widget.component.html',
     styleUrl: './ngx-calender-widget.component.scss'
 })
-export class NgxCalenderWidgetComponent {
+export class NgxCalenderWidgetComponent implements OnChanges {
     @Input() locale: 'en' | 'es' | 'de' | 'fr' | 'it' = 'de';
     @Input() size: 'default' | 'large' | 'x-large' = 'default';
     @Input() hideMultiDayEventsText: boolean = true;
@@ -48,7 +48,7 @@ export class NgxCalenderWidgetComponent {
     private endDate: string | null = null;
 
     @Output() addEvent = new EventEmitter<string>();
-    @Output() clickEvent = new EventEmitter<any>();
+    @Output() selectEvent = new EventEmitter<any>();
 
     private processedEvents: any[] = [];
 
@@ -286,6 +286,6 @@ export class NgxCalenderWidgetComponent {
 
     onEventClick(event: any, $event: MouseEvent) {
         $event.stopPropagation();
-        this.clickEvent.emit(event);
+        this.selectEvent.emit(event);
     }
 }
