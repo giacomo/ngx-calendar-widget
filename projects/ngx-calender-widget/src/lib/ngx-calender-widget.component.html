@@ -33,7 +33,8 @@
                     <div class="calender__event"
                          *ngFor="let event of getEventsForDay(day)"
                          [ngClass]="getEventClass(event, day)"
-                         [ngStyle]="getEventStyles(event)">
+                         [ngStyle]="getEventStyles(event)"
+                         (click)="onEventSelect(event, $event)">
                         {{ event.displayTitle }}
                     </div>
                 </div>

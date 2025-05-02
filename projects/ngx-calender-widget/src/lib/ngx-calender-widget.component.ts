@@ -284,7 +284,7 @@ export class NgxCalenderWidgetComponent implements OnChanges {
         return '';
     }
 
-    onEventClick(event: any, $event: MouseEvent) {
+    onEventSelect(event: any, $event: Event) {
         $event.stopPropagation();
         this.selectEvent.emit(event);
     }
