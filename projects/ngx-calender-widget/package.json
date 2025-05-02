@@ -1,6 +1,24 @@
 {
     "name": "@localia/ngx-calender-widget",
-    "version": "0.0.4",
+    "version": "0.0.5",
+    "description": "A lightweight, customizable, and feature-rich Angular calendar widget designed to simplify event management and scheduling in your Angular applications.",
+    "author": "Giacomo Barbalinardo <me@giacomo.dev>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/giacomo/ngx-calender-widget.git"
+    },
+    "bugs": {
+        "url": "https://github.com/giacomo/ngx-calender-widget/issues"
+    },
+    "homepage": "https://github.com/giacomo/ngx-calender-widget",
+    "keywords": [
+        "angular",
+        "ngx",
+        "calendar",
+        "widget",
+        "calendar widget"
+    ],
     "peerDependencies": {
         "@angular/common": "^19.2.0",
         "@angular/core": "^19.2.0"

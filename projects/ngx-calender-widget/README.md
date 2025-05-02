@@ -68,7 +68,10 @@ Use the component in your template:
 </ngx-calender-widget>
 ```
 
-![Component Example](https://via.placeholder.com/600x400?text=Component+Example)
+### Component Preview
+<p align="center"> 
+  <img src="https://giacomo.dev/media/ncw_preview.png" alt="ngx-calender-widget" width="400"/>
+</p>
 
 ### Event Structure
 

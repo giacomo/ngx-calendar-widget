@@ -68,7 +68,10 @@ Use the component in your template:
 </ngx-calender-widget>
 ```
 
-![Component Example](https://via.placeholder.com/600x400?text=Component+Example)
+### Component Preview
+<p align="center"> 
+  <img src="https://giacomo.dev/media/ncw_preview.png" alt="ngx-calender-widget" width="400"/>
+</p>
 
 ### Event Structure
 
@@ -88,8 +91,8 @@ interface CalenderEventInterface {
 ```typescript
 // Single-day event
 {
-    id: 1, 
-    title: "Team Meeting",
+    id: 1,
+        title: "Team Meeting",
     date: "2023-10-15T14:00:00",
     endDate: "2023-10-15T15:30:00"
 }
@@ -97,7 +100,7 @@ interface CalenderEventInterface {
 // Multi-day event
 {
     id: "conf-2023",
-    title: "Annual Conference",
+        title: "Annual Conference",
     date: "2023-11-01T09:00:00",
     endDate: "2023-11-03T17:00:00"
 }
@@ -105,7 +108,7 @@ interface CalenderEventInterface {
 // Event without end date (treated as single-day)
 {
     id: 42,
-    title: "Deadline",
+        title: "Deadline",
     date: "2023-10-31T23:59:59",
     endDate: null
 }
