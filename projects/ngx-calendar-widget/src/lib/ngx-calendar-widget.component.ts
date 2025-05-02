@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Output, EventEmitter, Input, SimpleChanges, OnChanges, inject, untracked } from '@angular/core';
 import {
     getMonth,
     getYear,
@@ -9,16 +9,14 @@ import {
     isWeekend,
     isSameDay,
     isToday as isTodayFn,
-    isBefore,
-    isWithinInterval,
     format,
     parseISO,
     differenceInDays,
     compareAsc,
     isSameWeek, getDay
 } from 'date-fns';
-import { Translations } from './translations';
 import { CalendarEventInterface } from './calendar-event.interface';
+import { LocaleStore } from './locale.store';
 
 @Component({
     selector: 'ngx-calendar-widget',
@@ -27,7 +25,8 @@ import { CalendarEventInterface } from './calendar-event.interface';
     styleUrl: './ngx-calendar-widget.component.scss'
 })
 export class NgxCalendarWidgetComponent implements OnChanges {
-    @Input() locale: 'en' | 'es' | 'de' | 'fr' | 'it' = 'de';
+    private readonly locales = inject(LocaleStore);
+    @Input() locale: string = 'en';
     @Input() size: 'default' | 'large' | 'x-large' = 'default';
     @Input() hideMultiDayEventsText: boolean = true;
     @Input() enableAddEvent: boolean = false;
@@ -63,12 +62,14 @@ export class NgxCalendarWidgetComponent implements OnChanges {
     }
 
     private updateLocaleSpecificData(): void {
-        this.months = Translations.getMonthNames(this.locale);
-        this.weekdays = Translations.getDayNames(this.locale);
-        this.today = Translations.getToday(this.locale);
-        this.localeCode = Translations.getLocale(this.locale);
-        this.addEventText = Translations.getAddEvent(this.locale);
-        this.endDateText = Translations.getEndDate(this.locale);
+        const t = untracked(this.locales.getTranslation(this.locale));
+
+        this.localeCode = t.name;
+        this.today = t.today;
+        this.weekdays = t.dayNames;
+        this.months = t.monthNames;
+        this.addEventText = t.addEvent;
+        this.endDateText = t.endDate;
     }
 
     get matrix() {
