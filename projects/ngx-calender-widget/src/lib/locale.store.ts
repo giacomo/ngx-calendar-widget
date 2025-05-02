@@ -38,9 +38,7 @@ const DEFAULT_LOCALE: Locale = {
     providedIn: 'root'
 })
 export class LocaleStore {
-    private readonly translations = signal<Partial<Record<string, Locale>>>({
-        en: DEFAULT_LOCALE
-    });
+    private readonly translations = signal<Partial<Record<string, Locale>>>({});
 
     private readonly fallback = computed(() => Object.values(this.translations()).at(0) ?? DEFAULT_LOCALE);
     
