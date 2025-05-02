@@ -18,20 +18,20 @@ import {
     isSameWeek, getDay
 } from 'date-fns';
 import { Translations } from './translations';
-import { CalenderEventInterface } from './calender-event.interface';
+import { CalendarEventInterface } from './calendar-event.interface';
 
 @Component({
-    selector: 'ngx-calender-widget',
+    selector: 'ngx-calendar-widget',
     standalone: false,
-    templateUrl: './ngx-calender-widget.component.html',
-    styleUrl: './ngx-calender-widget.component.scss'
+    templateUrl: './ngx-calendar-widget.component.html',
+    styleUrl: './ngx-calendar-widget.component.scss'
 })
-export class NgxCalenderWidgetComponent implements OnChanges {
+export class NgxCalendarWidgetComponent implements OnChanges {
     @Input() locale: 'en' | 'es' | 'de' | 'fr' | 'it' = 'de';
     @Input() size: 'default' | 'large' | 'x-large' = 'default';
     @Input() hideMultiDayEventsText: boolean = true;
     @Input() enableAddEvent: boolean = false;
-    @Input() events: CalenderEventInterface[] = [];
+    @Input() events: CalendarEventInterface[] = [];
 
     month = getMonth(new Date());
     year = getYear(new Date());

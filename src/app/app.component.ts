@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CalenderEventInterface } from '../../projects/ngx-calender-widget/src/lib/calender-event.interface';
+import { CalendarEventInterface } from '../../projects/ngx-calendar-widget/src/lib/calendar-event.interface';
 
 @Component({
     selector: 'app-root',
@@ -18,5 +18,5 @@ export class AppComponent {
             date: this.date.toISOString(),
             endDate: null,
         }
-    ] as CalenderEventInterface[];
+    ] as CalendarEventInterface[];
 }

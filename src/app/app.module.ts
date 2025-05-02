@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgxCalenderWidgetModule } from '../../projects/ngx-calender-widget/src/lib/ngx-calender-widget.module';
+import { NgxCalendarWidgetModule } from '../../projects/ngx-calendar-widget/src/lib/ngx-calendar-widget.module';
 
 @NgModule({
     declarations: [
@@ -12,7 +12,7 @@ import { NgxCalenderWidgetModule } from '../../projects/ngx-calender-widget/src/
     imports: [
         BrowserModule,
         AppRoutingModule,
-        NgxCalenderWidgetModule
+        NgxCalendarWidgetModule
     ],
     providers: [],
     bootstrap: [AppComponent]

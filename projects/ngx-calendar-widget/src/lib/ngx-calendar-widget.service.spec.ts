@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { NgxCalenderWidgetService } from './ngx-calender-widget.service';
+import { NgxCalendarWidgetService } from './ngx-calendar-widget.service';
 
 describe('NgxCalenderWidgetService', () => {
-  let service: NgxCalenderWidgetService;
+  let service: NgxCalendarWidgetService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(NgxCalenderWidgetService);
+    service = TestBed.inject(NgxCalendarWidgetService);
   });
 
   it('should be created', () => {

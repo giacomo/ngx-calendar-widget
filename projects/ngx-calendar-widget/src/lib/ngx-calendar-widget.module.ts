@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
-import { NgxCalenderWidgetComponent } from './ngx-calender-widget.component';
+import { NgxCalendarWidgetComponent } from './ngx-calendar-widget.component';
 import { CommonModule } from '@angular/common';
 
 
 @NgModule({
     declarations: [
-        NgxCalenderWidgetComponent
+        NgxCalendarWidgetComponent
     ],
     imports: [
         CommonModule,
     ],
     exports: [
-        NgxCalenderWidgetComponent
+        NgxCalendarWidgetComponent
     ]
 })
-export class NgxCalenderWidgetModule {
+export class NgxCalendarWidgetModule {
 }

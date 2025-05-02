@@ -1,8 +1,8 @@
-# @localia/ngx-calender-widget
+# @localia/ngx-calendar-widget
 
-![Version](https://img.shields.io/npm/v/@localia/ngx-calender-widget)
-![License](https://img.shields.io/npm/l/@localia/ngx-calender-widget)
-![Downloads](https://img.shields.io/npm/dt/@localia/ngx-calender-widget)
+![Version](https://img.shields.io/npm/v/@localia/ngx-calendar-widget)
+![License](https://img.shields.io/npm/l/@localia/ngx-calendar-widget)
+![Downloads](https://img.shields.io/npm/dt/@localia/ngx-calendar-widget)
 
 A lightweight, customizable, and feature-rich Angular calendar widget designed to simplify event management and scheduling in your Angular applications.
 
@@ -23,13 +23,13 @@ A lightweight, customizable, and feature-rich Angular calendar widget designed t
 Install the library using npm:
 
 ```bash
-npm install @localia/ngx-calender-widget
+npm install @localia/ngx-calendar-widget
 ```
 
 Or with yarn:
 
 ```bash
-yarn add @localia/ngx-calender-widget
+yarn add @localia/ngx-calendar-widget
 ```
 
 ## Usage
@@ -44,7 +44,7 @@ import { NgxCalenderWidgetModule } from '@localia/ngx-calender-widget';
 @NgModule({
     imports: [
         // ...other imports
-        NgxCalenderWidgetModule
+        NgxCalendarWidgetModule
     ],
     // ...other module properties
 })
@@ -58,14 +58,14 @@ Use the component in your template:
 
 ```html
 
-<ngx-calender-widget
+<ngx-calendar-widget
     [locale]="'en'"
     [size]="'default'"
     [events]="events"
     [enableAddEvent]="true"
     (addEvent)="onAddEvent($event)"
     (selectEvent)="onEventSelect($event)">
-</ngx-calender-widget>
+</ngx-calendar-widget>
 ```
 
 ### Component Preview
@@ -91,7 +91,7 @@ interface CalenderEventInterface {
 ```typescript
 // Single-day event
 {
-    id: 1, 
+    id: 1,
     title: "Team Meeting",
     date: "2023-10-15T14:00:00",
     endDate: "2023-10-15T15:30:00"

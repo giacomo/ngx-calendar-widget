@@ -105,23 +105,23 @@
         }
       }
     },
-    "ngx-calender-widget": {
+    "ngx-calendar-widget": {
       "projectType": "library",
-      "root": "projects/ngx-calender-widget",
-      "sourceRoot": "projects/ngx-calender-widget/src",
+      "root": "projects/ngx-calendar-widget",
+      "sourceRoot": "projects/ngx-calendar-widget/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/ngx-calender-widget/ng-package.json"
+            "project": "projects/ngx-calendar-widget/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ngx-calender-widget/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ngx-calendar-widget/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/ngx-calender-widget/tsconfig.lib.json"
+              "tsConfig": "projects/ngx-calendar-widget/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -129,7 +129,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": "projects/ngx-calender-widget/tsconfig.spec.json",
+            "tsConfig": "projects/ngx-calendar-widget/tsconfig.spec.json",
             "polyfills": [
               "zone.js",
               "zone.js/testing"

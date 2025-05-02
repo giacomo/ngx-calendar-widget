@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../dist/ngx-calender-widget",
+  "dest": "../../dist/ngx-calendar-widget",
   "lib": {
     "entryFile": "src/public-api.ts"
   }
