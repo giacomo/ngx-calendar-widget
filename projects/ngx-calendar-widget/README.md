@@ -12,7 +12,7 @@ A lightweight, customizable, and feature-rich Angular calendar widget designed t
 
 ## Features
 
-- **Multi-locale support**: Display calendar in different languages (English, Spanish, German, French, Italian)
+- **Multi-locale support**: Provide & use multiple translations.
 - **Customizable sizes**: Choose between default, large, and extra-large sizes
 - **Event management**: Add, display, and interact with events
 - **Responsive design**: Works seamlessly across devices
@@ -51,6 +51,63 @@ import { NgxCalenderWidgetModule } from '@localia/ngx-calender-widget';
 export class AppModule {
 }
 ```
+
+#### Providing Custom Locales [Optional]
+
+By default, the calendar uses English ('en') translations. You can provide your own translations for one or more locales using the forRoot static method when importing the module in your root application module (e.g., AppModule).
+
+_Note:_ You only need to call .forRoot() once in your application.
+
+```typescript
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+// Import the module and the Locale type definition
+import { NgxCalenderWidgetModule, provideNgxCalenderTranslations } from '@localia/ngx-calender-widget';
+
+import { AppComponent } from './app.component';
+
+// Define your custom locale(s)
+const myLocales: Locale[] = [
+  {
+    name: 'de', // Unique name for the locale (used in [locale] input)
+    dayNames: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
+    monthNames: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
+    today: "Heute",
+    addEvent: "Ereignis hinzufügen...",
+    endDate: "Ende:"
+    // dateFnsLocale: de // --> Add this if you bring back date-fns locale dependency!
+  },
+  {
+    name: 'fr',
+    dayNames: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+    monthNames: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+    today: "Aujourd'hui",
+    addEvent: "Ajouter un événement...",
+    endDate: "Fin:"
+    // dateFnsLocale: fr // --> Add this if you bring back date-fns locale dependency!
+  }
+];
+
+@NgModule({
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        BrowserModule,
+        // Provide your locales using .forRoot()
+        NgxCalenderWidgetModule.forRoot(myLocales)
+    ],
+
+    providers: [
+        // or alternatively use the provider function
+        provideNgxCalenderTranslations(myLocales)
+    ],
+    bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+```
+The `[locale]` input on the `<ngx-calender-widget>` component determines which translations are used. If the specified locale is not found among the provided translations, the first locale provided via forRoot (or the default 'en' locale if .forRoot() was not called) will be used as a fallback.
 
 ### Add to Template
 
