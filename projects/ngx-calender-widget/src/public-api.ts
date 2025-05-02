@@ -5,3 +5,4 @@
 export * from './lib/ngx-calender-widget.service';
 export * from './lib/ngx-calender-widget.component';
 export * from './lib/ngx-calender-widget.module';
+export { provideNgxCalenderTranslations, type Locale } from './lib/locale.store';
