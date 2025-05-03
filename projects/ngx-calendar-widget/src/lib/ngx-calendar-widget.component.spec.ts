@@ -1,23 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgxCalendarWidgetComponent } from './ngx-calendar-widget.component';
 
-import { NgxCalenderWidgetComponent } from './ngx-calender-widget.component';
+describe('NgxCalendarWidgetComponent', () => {
+    let component: NgxCalendarWidgetComponent;
+    let fixture: ComponentFixture<NgxCalendarWidgetComponent>;
 
-describe('NgxCalenderWidgetComponent', () => {
-  let component: NgxCalenderWidgetComponent;
-  let fixture: ComponentFixture<NgxCalenderWidgetComponent>;
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [NgxCalendarWidgetComponent]
+        })
+            .compileComponents();
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [NgxCalenderWidgetComponent]
-    })
-    .compileComponents();
+        fixture = TestBed.createComponent(NgxCalendarWidgetComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-    fixture = TestBed.createComponent(NgxCalenderWidgetComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

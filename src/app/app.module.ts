@@ -12,7 +12,7 @@ import { NgxCalendarWidgetModule } from '../../projects/ngx-calendar-widget/src/
     imports: [
         BrowserModule,
         AppRoutingModule,
-        NgxCalendarWidgetModule
+        NgxCalendarWidgetModule.forRoot() // Using default date-fns adapter
     ],
     providers: [],
     bootstrap: [AppComponent]

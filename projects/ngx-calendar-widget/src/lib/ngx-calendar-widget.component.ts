@@ -1,24 +1,8 @@
-import { Component, Output, EventEmitter, Input, SimpleChanges, OnChanges } from '@angular/core';
-import {
-    getMonth,
-    getYear,
-    startOfWeek,
-    addDays,
-    addMonths,
-    isSameMonth,
-    isWeekend,
-    isSameDay,
-    isToday as isTodayFn,
-    isBefore,
-    isWithinInterval,
-    format,
-    parseISO,
-    differenceInDays,
-    compareAsc,
-    isSameWeek, getDay
-} from 'date-fns';
+import { Component, Output, EventEmitter, Input, SimpleChanges, OnChanges, Inject } from '@angular/core';
 import { Translations } from './translations';
-import { CalendarEventInterface } from './calendar-event.interface';
+import { CalendarEventInterface } from './interfaces/calendar-event.interface';
+import { DateAdapter } from './interfaces/date-adapter.interface';
+import { DATE_ADAPTER } from './tokens/date-adapter.token';
 
 @Component({
     selector: 'ngx-calendar-widget',
@@ -33,8 +17,8 @@ export class NgxCalendarWidgetComponent implements OnChanges {
     @Input() enableAddEvent: boolean = false;
     @Input() events: CalendarEventInterface[] = [];
 
-    month = getMonth(new Date());
-    year = getYear(new Date());
+    month = 0;
+    year = 0;
     months: string[] = [];
     weekdays: string[] = [];
     today: string = '';
@@ -52,7 +36,9 @@ export class NgxCalendarWidgetComponent implements OnChanges {
 
     private processedEvents: any[] = [];
 
-    constructor() {
+    constructor(@Inject(DATE_ADAPTER) private dateAdapter: DateAdapter) {
+        this.month = this.dateAdapter.getMonth(new Date());
+        this.year = this.dateAdapter.getYear(new Date());
         this.updateLocaleSpecificData();
     }
 
@@ -74,13 +60,13 @@ export class NgxCalendarWidgetComponent implements OnChanges {
     get matrix() {
         const matrix: any[] = [];
         const date = new Date(this.year, this.month);
-        let currentDate = startOfWeek(date, { weekStartsOn: this.weekStartsOn })
+        let currentDate = this.dateAdapter.startOfWeek(date, { weekStartsOn: this.weekStartsOn })
 
         this.rows.forEach(row => {
             const week: any[] = []
             this.cols.forEach(col => {
                 week.push(currentDate)
-                currentDate = addDays(currentDate, 1)
+                currentDate = this.dateAdapter.addDays(currentDate, 1)
             });
 
             matrix.push(week)
@@ -91,55 +77,55 @@ export class NgxCalendarWidgetComponent implements OnChanges {
 
     goToToday() {
         const today = new Date();
-        this.month = getMonth(today);
-        this.year = getYear(today);
+        this.month = this.dateAdapter.getMonth(today);
+        this.year = this.dateAdapter.getYear(today);
     }
 
     nextMonth() {
-        const date = addMonths(new Date(this.year, this.month), 1);
+        const date = this.dateAdapter.addMonths(new Date(this.year, this.month), 1);
 
-        this.month = getMonth(date);
-        this.year = getYear(date);
+        this.month = this.dateAdapter.getMonth(date);
+        this.year = this.dateAdapter.getYear(date);
     }
 
     prevMonth() {
-        const date = addMonths(new Date(this.year, this.month), -1);
+        const date = this.dateAdapter.addMonths(new Date(this.year, this.month), -1);
 
-        this.month = getMonth(date);
-        this.year = getYear(date);
+        this.month = this.dateAdapter.getMonth(date);
+        this.year = this.dateAdapter.getYear(date);
     }
 
     isNotSameMonth(date: Date) {
-        return !isSameMonth(date, new Date(this.year, this.month));
+        return !this.dateAdapter.isSameMonth(date, new Date(this.year, this.month));
     }
 
     isWeekend(date: Date) {
-        return isWeekend(date);
+        return this.dateAdapter.isWeekend(date);
     }
 
     isToday(date: Date) {
-        return isTodayFn(date);
+        return this.dateAdapter.isToday(date);
     }
 
     isSelected(date: Date) {
-        return (this.startDate && isSameDay(date, parseISO(this.startDate))) ||
-            (this.endDate && isSameDay(date, parseISO(this.endDate)));
+        return (this.startDate && this.dateAdapter.isSameDay(date, this.dateAdapter.parseISO(this.startDate))) ||
+            (this.endDate && this.dateAdapter.isSameDay(date, this.dateAdapter.parseISO(this.endDate)));
     }
 
     getEventsForDay(date: Date) {
         // Group and track events to determine positions
-        if (isSameDay(date, startOfWeek(date, { weekStartsOn: this.weekStartsOn }))) {
+        if (this.dateAdapter.isSameDay(date, this.dateAdapter.startOfWeek(date, { weekStartsOn: this.weekStartsOn }))) {
             // Process events for the entire week when we're on the first day of the week
             this.processEventsForWeek();
         }
 
         // Get events for this day
         return this.processedEvents.filter(event => {
-            return event.days.some((day: Date) => isSameDay(day, date));
+            return event.days.some((day: Date) => this.dateAdapter.isSameDay(day, date));
         }).map(event => {
-            const isFirstDay = isSameDay(date, parseISO(event.date));
-            const isLastDay = event.endDate ? isSameDay(date, parseISO(event.endDate)) : true;
-            const dayIndex = event.days.findIndex((day: Date) => isSameDay(day, date));
+            const isFirstDay = this.dateAdapter.isSameDay(date, this.dateAdapter.parseISO(event.date));
+            const isLastDay = event.endDate ? this.dateAdapter.isSameDay(date, this.dateAdapter.parseISO(event.endDate)) : true;
+            const dayIndex = event.days.findIndex((day: Date) => this.dateAdapter.isSameDay(day, date));
 
             return {
                 ...event,
@@ -159,30 +145,30 @@ export class NgxCalendarWidgetComponent implements OnChanges {
         // Clone and sort events by start date and duration
         const sortedEvents = [...this.events]
             .sort((a, b) => {
-                const dateA = parseISO(a.date);
-                const dateB = parseISO(b.date);
+                const dateA = this.dateAdapter.parseISO(a.date);
+                const dateB = this.dateAdapter.parseISO(b.date);
                 const durationA = a.endDate ?
-                    differenceInDays(parseISO(a.endDate), dateA) + 1 : 1;
+                    this.dateAdapter.differenceInDays(this.dateAdapter.parseISO(a.endDate), dateA) + 1 : 1;
                 const durationB = b.endDate ?
-                    differenceInDays(parseISO(b.endDate), dateB) + 1 : 1;
+                    this.dateAdapter.differenceInDays(this.dateAdapter.parseISO(b.endDate), dateB) + 1 : 1;
 
                 // Sort by duration (longer events first), then by start date
                 if (durationA !== durationB) {
                     return durationB - durationA;
                 }
-                return compareAsc(dateA, dateB);
+                return this.dateAdapter.compareAsc(dateA, dateB);
             });
 
         // Process each event
         for (const event of sortedEvents) {
-            const startDate = parseISO(event.date);
-            const endDate = event.endDate ? parseISO(event.endDate) : startDate;
+            const startDate = this.dateAdapter.parseISO(event.date);
+            const endDate = event.endDate ? this.dateAdapter.parseISO(event.endDate) : startDate;
             const days: Date[] = [];
 
             let currentDate = startDate;
-            while (compareAsc(currentDate, endDate) <= 0) {
+            while (this.dateAdapter.compareAsc(currentDate, endDate) <= 0) {
                 days.push(currentDate);
-                currentDate = addDays(currentDate, 1);
+                currentDate = this.dateAdapter.addDays(currentDate, 1);
             }
 
             // Find position for the event (track)
@@ -197,7 +183,7 @@ export class NgxCalendarWidgetComponent implements OnChanges {
                     if (event.track === track) {
                         // Check for overlap
                         const overlap = days.some(day =>
-                            event.days.some((eventDay: Date) => isSameDay(day, eventDay))
+                            event.days.some((eventDay: Date) => this.dateAdapter.isSameDay(day, eventDay))
                         );
 
                         if (overlap) {
@@ -218,14 +204,14 @@ export class NgxCalendarWidgetComponent implements OnChanges {
     }
 
     isFirstDayOfWeek(date: Date) {
-        const dayOfWeek = getDay(date);
+        const dayOfWeek = this.dateAdapter.getDay(date);
         return dayOfWeek === this.weekStartsOn;
     }
 
     hasEventStartInCurrentWeek(event: any, currentDate: Date) {
-        // Prüft, ob der Beginn des Events in der gleichen Woche wie das aktuelle Datum liegt
-        return isSameWeek(
-            parseISO(event.date),
+        // Checks if the beginning of the event is in the same week as the current date
+        return this.dateAdapter.isSameWeek(
+            this.dateAdapter.parseISO(event.date),
             currentDate,
             { weekStartsOn: this.weekStartsOn }
         );
@@ -237,11 +223,11 @@ export class NgxCalendarWidgetComponent implements OnChanges {
         }
 
         if (isFirstDay && isLastDay) {
-            return `${format(parseISO(event.date), 'HH:mm', {locale: this.localeCode })} - ${format(parseISO(event.endDate), 'HH:mm', {locale: this.localeCode })} ${event.title} `;
+            return `${this.dateAdapter.format(this.dateAdapter.parseISO(event.date), 'HH:mm', {locale: this.localeCode })} - ${this.dateAdapter.format(this.dateAdapter.parseISO(event.endDate), 'HH:mm', {locale: this.localeCode })} ${event.title} `;
         } else if (isFirstDay) {
-            return `${event.title} (${format(parseISO(event.date), 'MMM d', {locale: this.localeCode })} - ${format(parseISO(event.endDate), 'MMM d', {locale: this.localeCode })})`;
+            return `${event.title} (${this.dateAdapter.format(this.dateAdapter.parseISO(event.date), 'MMM d', {locale: this.localeCode })} - ${this.dateAdapter.format(this.dateAdapter.parseISO(event.endDate), 'MMM d', {locale: this.localeCode })})`;
         } else if (isLastDay) {
-            return `${event.title} (${this.endDateText} ${format(parseISO(event.endDate), 'MMM d', {locale: this.localeCode })})`;
+            return `${event.title} (${this.endDateText} ${this.dateAdapter.format(this.dateAdapter.parseISO(event.endDate), 'MMM d', {locale: this.localeCode })})`;
         } else {
             return `${event.title}`;
         }
@@ -254,9 +240,9 @@ export class NgxCalendarWidgetComponent implements OnChanges {
             'calender__event--middle': event.isMultiDay && !event.isFirstDay && !event.isLastDay,
             'calender__event--multi-day-hidden': event.isMultiDay && this.hideMultiDayEventsText &&
                 !(
-                    event.isFirstDay || // Start des Events immer sichtbar
-                    this.isFirstDayOfWeek(date) || // Erster Tag jeder Woche immer sichtbar
-                    (event.isLastDay && !this.isFirstDayOfWeek(date)) // Letzter Tag sichtbar, wenn nicht auch erster Tag der Woche
+                    event.isFirstDay || // Always visible at the start of the event
+                    this.isFirstDayOfWeek(date) || // Always visible on the first day of each week
+                    (event.isLastDay && !this.isFirstDayOfWeek(date)) // Last day visible if not also the first day of the week
                 ),
             'calender__event--multi-day': event.isMultiDay
         };
