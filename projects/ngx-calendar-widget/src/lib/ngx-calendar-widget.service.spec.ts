@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { NgxCalendarWidgetService } from './ngx-calendar-widget.service';
 
-describe('NgxCalenderWidgetService', () => {
+describe('NgxCalendarWidgetService', () => {
   let service: NgxCalendarWidgetService;
 
   beforeEach(() => {
