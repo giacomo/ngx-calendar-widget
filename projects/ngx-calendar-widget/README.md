@@ -14,6 +14,7 @@ A lightweight, customizable, and feature-rich Angular calendar widget designed t
 
 - **Multi-locale support**: Display calendar in different languages (English, Spanish, German, French, Italian)
 - **Customizable sizes**: Choose between default, large, and extra-large sizes
+- **Customizable colors**: Set your own colors for the events
 - **Event management**: Add, display, and interact with events
 - **Responsive design**: Works seamlessly across devices
 - **Easy integration**: Simple to set up and use in Angular projects
