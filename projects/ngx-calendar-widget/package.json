@@ -1,6 +1,6 @@
 {
     "name": "@localia/ngx-calendar-widget",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "A lightweight, customizable, and feature-rich Angular calendar widget designed to simplify event management and scheduling in your Angular applications.",
     "author": "Giacomo Barbalinardo <me@giacomo.dev>",
     "license": "MIT",
