@@ -30,6 +30,8 @@ export class AppComponent implements OnInit {
                 title: 'Conference',
                 date: this.dateAdapter.addDays(this.date, 3).toISOString(),
                 endDate: this.dateAdapter.addDays(this.date, 7).toISOString(),
+                color: '#55ac77',
+                textColor: '#000000',
             }
         ] as CalendarEventInterface[];
     }

@@ -248,11 +248,23 @@ export class NgxCalendarWidgetComponent implements OnChanges {
         };
     }
 
-    getEventStyles(event: any) {
-        return {
+    getEventStyles(event: any): Record<string, string | number> {
+        const defaultStyle: Record<string, string | number> = {
             'order': event.track,
             'z-index': 10 - event.track // Higher tracks should be behind
         };
+
+        const customStyle = { ...defaultStyle };
+
+        if (event?.color) {
+            customStyle['background-color'] = event.color;
+        }
+
+        if (event?.textColor) {
+            customStyle['color'] = event.textColor;
+        }
+
+        return customStyle;
     }
 
     addNewEvent(date: Date, $event: MouseEvent) {
